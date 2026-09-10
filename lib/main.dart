@@ -8,7 +8,6 @@ import 'presentation/screens/main_shell.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Estilo de barra de estado translúcida y elegante
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

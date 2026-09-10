@@ -33,7 +33,6 @@ class PantryChipWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       child: Row(
         children: [
-          // Icono vectorial de categoría con fondo suave
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -50,7 +49,6 @@ class PantryChipWidget extends StatelessWidget {
           ),
           const SizedBox(width: 14),
 
-          // Textos
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +95,6 @@ class PantryChipWidget extends StatelessWidget {
             ),
           ),
 
-          // Menú de opciones sutil
           PopupMenuButton<String>(
             icon: const Icon(
               Icons.more_vert_rounded,

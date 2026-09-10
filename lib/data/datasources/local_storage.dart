@@ -17,7 +17,6 @@ class LocalStorageService {
   static const _keyApiKey = 'brainfood_ai_api_key';
   static const _keyStaplesActive = 'brainfood_staples_active';
 
-  // --- Despensa ---
   static Future<void> savePantry(List<IngredientItem> items) async {
     final prefs = await SharedPreferences.getInstance();
     final jsonList = items.map((e) => e.toJson()).toList();
@@ -28,7 +27,6 @@ class LocalStorageService {
     final prefs = await SharedPreferences.getInstance();
     final raw = prefs.getString(_keyPantry);
     if (raw == null || raw.isEmpty) {
-      // New users explicitly choose their stock; never invent pantry contents.
       final defaults = <IngredientItem>[];
       await savePantry(defaults);
       return defaults;
@@ -41,7 +39,6 @@ class LocalStorageService {
     }
   }
 
-  // --- Lista de Compras ---
   static Future<void> saveShoppingList(List<ShoppingItem> items) async {
     final prefs = await SharedPreferences.getInstance();
     final jsonList = items.map((e) => e.toJson()).toList();
@@ -60,7 +57,6 @@ class LocalStorageService {
     }
   }
 
-  // --- Plan Semanal ---
   static Future<void> saveMealPlan(List<MealPlanSlot> slots) async {
     final prefs = await SharedPreferences.getInstance();
     final jsonList = slots.map((e) => e.toJson()).toList();
@@ -71,7 +67,6 @@ class LocalStorageService {
     final prefs = await SharedPreferences.getInstance();
     final raw = prefs.getString(_keyMealPlan);
     if (raw == null || raw.isEmpty) {
-      // Inicializar plantilla semanal vacía (Lunes a Domingo, Desayuno, Almuerzo y Cena)
       final initialSlots = <MealPlanSlot>[];
       for (int day = 1; day <= 7; day++) {
         initialSlots.add(
@@ -107,7 +102,6 @@ class LocalStorageService {
     }
   }
 
-  // --- Recetas Generadas / Personalizadas ---
   static Future<void> saveCustomRecipes(List<Recipe> recipes) async {
     final prefs = await SharedPreferences.getInstance();
     final jsonList = recipes.map((e) => e.toJson()).toList();
@@ -126,7 +120,6 @@ class LocalStorageService {
     }
   }
 
-  // --- Configuración y Clave IA ---
   static Future<void> saveApiKey(String key) async {
     final provider = await loadAiProvider();
     await const FlutterSecureStorage().write(
@@ -144,7 +137,7 @@ class LocalStorageService {
   static Future<String> loadProviderKey(String provider) async {
     final prefs = await SharedPreferences.getInstance();
     const secure = FlutterSecureStorage();
-    // The original app used OpenRouter only. Never send its key to another provider.
+    // Migra la clave heredada sin enviarla a otro proveedor.
     final old = prefs.getString(_keyApiKey);
     if (old != null && old.isNotEmpty) {
       final existing = await secure.read(key: 'bf_key_openrouter');

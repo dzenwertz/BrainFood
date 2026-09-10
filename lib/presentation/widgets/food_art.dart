@@ -2,9 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-/// Ilustraciones vectoriales originales: nítidas a cualquier resolución,
-/// 100% offline y renderizadas con aceleración por hardware en Canvas.
-/// Estilo minimalista editorial Astra sobre plato cerámico cenital.
+/// Ilustración vectorial local para cada receta.
 class FoodArt extends StatelessWidget {
   final String recipeId;
   final double size;
@@ -27,19 +25,18 @@ class _FoodPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.save();
-    // Normalizamos el canvas a un sistema de coordenadas de 240x240
+    // Sistema de coordenadas común para escalar la ilustración.
     canvas.scale(size.width / 240, size.height / 240);
     final paint = Paint()..isAntiAlias = true;
 
-    // 1. Plato cerámico artesanal con sombra suave
     _drawCeramicPlate(canvas, paint);
 
-    // Semilla determinista basada en el identificador de la receta
+    // Variación estable para cada receta.
     final key = id.toLowerCase();
     final seed = key.codeUnits.fold<int>(0, (a, b) => a + b);
     final random = math.Random(seed);
 
-    // Detección de arquetipos por palabras clave
+    // Tipo visual según el nombre de la receta.
     final isPasta =
         key.contains('pasta') ||
         key.contains('espagueti') ||
@@ -102,7 +99,6 @@ class _FoodPainter extends CustomPainter {
         key.contains('causa') ||
         key.contains('bravas');
 
-    // 2. Capa base del plato
     if (isPasta) {
       _drawPastaBase(canvas, paint, random);
     } else if (isRice) {
@@ -119,21 +115,21 @@ class _FoodPainter extends CustomPainter {
         isGreen: isGreen,
       );
     } else if (isSoupOrCream) {
-      Color soupColor = const Color(0xFFE89A3E); // Calabaza/Zanahoria
+      Color soupColor = const Color(0xFFE89A3E);
       if (key.contains('verde') ||
           key.contains('espinaca') ||
           key.contains('calabacin') ||
           key.contains('aguadito') ||
           key.contains('menestron')) {
-        soupColor = const Color(0xFF5A8043); // Crema/sopa verde criolla
+        soupColor = const Color(0xFF5A8043);
       } else if (key.contains('tomate') ||
           key.contains('gazpacho') ||
           key.contains('criolla')) {
-        soupColor = const Color(0xFFC7462C); // Sopa criolla o crema de tomate
+        soupColor = const Color(0xFFC7462C);
       } else if (key.contains('pollo') ||
           key.contains('fideos') ||
           key.contains('caldo')) {
-        soupColor = const Color(0xFFE5C158); // Caldo dorado
+        soupColor = const Color(0xFFE5C158);
       }
       _drawSoupBase(canvas, paint, soupColor);
     } else if (isLegume) {
@@ -156,7 +152,6 @@ class _FoodPainter extends CustomPainter {
       _drawSauteBase(canvas, paint, random);
     }
 
-    // 3. Proteínas y elementos centrales
     final hasSalmon = key.contains('salmon');
     final hasFish =
         key.contains('pescado') ||
@@ -230,7 +225,6 @@ class _FoodPainter extends CustomPainter {
       _drawCheeseCubes(canvas, paint, random);
     }
 
-    // 4. Guarniciones, verduras frescas y detalles
     final hasTomatoes =
         key.contains('tomate') ||
         isSalad ||
@@ -250,35 +244,29 @@ class _FoodPainter extends CustomPainter {
       _drawRedOnionRings(canvas, paint, random);
     }
 
-    // Hojas frescas (albahaca / espinaca / perejil)
     final leafCount = isSalad ? 12 : (isPasta ? 7 : 5);
     _drawFreshLeaves(canvas, paint, random, count: leafCount);
 
-    // 5. Toppings finales: lluvia de hierbas finas y pimienta molida
     _drawFinishingTouches(canvas, paint, random);
 
     canvas.restore();
   }
 
-  // --- 1. Plato Cerámico ---
   void _drawCeramicPlate(Canvas canvas, Paint paint) {
     final platePath = Path()
       ..addOval(Rect.fromCircle(center: const Offset(122, 120), radius: 102));
     canvas.drawShadow(platePath, const Color(0xFF092820), 14, false);
 
-    // Borde exterior
     canvas.drawCircle(
       const Offset(120, 116),
       101,
       paint..color = const Color(0xFFFCF9EB),
     );
-    // Borde biselado interior
     canvas.drawCircle(
       const Offset(120, 116),
       88,
       paint..color = const Color(0xFFE8E5D5),
     );
-    // Base del plato
     canvas.drawCircle(
       const Offset(120, 115),
       84,
@@ -286,7 +274,6 @@ class _FoodPainter extends CustomPainter {
     );
   }
 
-  // --- 2. Bases ---
   void _drawPastaBase(Canvas canvas, Paint paint, math.Random random) {
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 4.8;
@@ -352,10 +339,8 @@ class _FoodPainter extends CustomPainter {
   }
 
   void _drawSoupBase(Canvas canvas, Paint paint, Color soupColor) {
-    // Sopa aterciopelada
     canvas.drawCircle(const Offset(120, 116), 72, paint..color = soupColor);
 
-    // Remolino de crema o hilo de aceite virgen
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 3.2;
     paint.strokeCap = StrokeCap.round;
@@ -520,7 +505,6 @@ class _FoodPainter extends CustomPainter {
     }
   }
 
-  // --- 3. Proteínas y Elementos Centrales ---
   void _drawSalmonFillet(Canvas canvas, Paint paint) {
     canvas.save();
     canvas.translate(120, 116);
@@ -751,7 +735,6 @@ class _FoodPainter extends CustomPainter {
     }
   }
 
-  // --- 4. Acompañamientos y Frescura ---
   void _drawCherryTomatoes(
     Canvas canvas,
     Paint paint,
@@ -866,7 +849,6 @@ class _FoodPainter extends CustomPainter {
     }
   }
 
-  // --- 5. Toques Finales ---
   void _drawFinishingTouches(Canvas canvas, Paint paint, math.Random random) {
     for (var i = 0; i < 28; i++) {
       final x = 70 + random.nextDouble() * 100;

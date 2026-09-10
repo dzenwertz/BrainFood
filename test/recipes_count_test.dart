@@ -54,10 +54,6 @@ void main() {
           );
         }
       }
-
-      // Print summary
-      // ignore: avoid_print
-      print('Total de recetas curadas verificadas: ${recipes.length}');
     },
   );
 }
