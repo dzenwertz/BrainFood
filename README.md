@@ -21,6 +21,15 @@ Flutter · Dart · Riverpod · Shared Preferences · Flutter Secure Storage
 
 El recetario local funciona sin IA. El asistente opcional solo se activa si la persona usuaria configura su propia clave de proveedor desde la aplicación.
 
+## Preparar el entorno
+
+Esta guía corresponde al código publicado en este repositorio; las copias de desarrollo pueden tener otra versión.
+
+- Flutter con Dart compatible con `pubspec.yaml` (el código publicado declara Dart `^3.13.2`).
+- Android SDK y JDK compatibles con el proyecto Android.
+- Emulador o equipo Android para ejecutar la interfaz.
+- La clave del proveedor solo es necesaria para el asistente remoto opcional; el recetario local es independiente.
+
 ## Ejecutar
 
 ```powershell
@@ -30,6 +39,22 @@ flutter test
 flutter run
 ```
 
+## Organización del código
+
+```text
+lib/core/                Utilidades y configuración compartida
+lib/data/                Modelos, recetario y servicios de persistencia
+lib/presentation/        Pantallas y componentes de interfaz
+test/                    Pruebas de dominio, almacenamiento y widgets
+design_review/           Imágenes de referencia de la interfaz
+```
+
+Las imágenes mostradas arriba pertenecen a `design_review/`; son referencias visuales del repositorio y pueden diferir de una compilación actual. Los comandos de verificación no implican que esta revisión documental haya ejecutado la aplicación o sus pruebas.
+
+## Qué demuestra este proyecto
+
+Modelado de ingredientes y recetas, almacenamiento de preferencias, filtros, listas sin duplicados y validación de respuestas externas. Proyecto personal de portafolio; no se presenta como un sistema empresarial.
+
 ## Autoría
 
 Creado y dirigido por [**Joseph Ivan Cachay Vargas**](https://github.com/dzenwertz), fundador de [**RETH**](https://rethagency.web.app/). BrainFood es un proyecto independiente de RETH para portafolio profesional.
@@ -38,4 +63,4 @@ Creado y dirigido por [**Joseph Ivan Cachay Vargas**](https://github.com/dzenwer
 
 ## Privacidad
 
-El repositorio no contiene tokens, claves de API, archivos `.env`, configuraciones locales de Android ni claves de firma.
+No publiques tokens, claves de API, archivos `.env`, configuraciones locales de Android ni claves de firma. Configura las credenciales opcionales desde la aplicación y revisa lo que compartirás con el proveedor antes de usar el asistente remoto.
