@@ -49,7 +49,7 @@ test/                    Pruebas de dominio, almacenamiento y widgets
 design_review/           Imágenes de referencia de la interfaz
 ```
 
-Las imágenes mostradas arriba pertenecen a `design_review/`; son referencias visuales del repositorio y pueden diferir de una compilación actual. Los comandos de verificación no implican que esta revisión documental haya ejecutado la aplicación o sus pruebas.
+Las imágenes mostradas arriba pertenecen a `design_review/`; son referencias visuales del repositorio y pueden diferir de una compilación actual. La revisión del 26/10/2026 ejecutó el análisis y las pruebas del código público: análisis sin incidencias y 26 pruebas correctas con Flutter 3.47.6/Dart 3.13.5. Consulta el [entorno, cobertura y límites de la verificación](docs/VALIDATION.md).
 
 ## Qué demuestra este proyecto
 
